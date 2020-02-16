@@ -1,0 +1,80 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+    <record model="ir.ui.view" id="bicycles.list">
+      <field name="name">bicycles list</field>
+      <field name="model">bicycles.bicycles</field>
+      <field name="arch" type="xml">
+        <tree>
+          <!-- <button class="btn btn-primary" name="open_bicycles_ui" type="object">Resume</button> -->
+          <field name="name"/>
+          <field name="stock"/>
+          <field name="description"/>
+        </tree>
+      </field>
+    </record>
+
+    <!-- actions opening views on models -->
+    <record model="ir.actions.act_window" id="bicycles.action_window">
+      <field name="name">bicycles window</field>
+      <field name="res_model">bicycles.bicycles</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- server action to the one above -->
+    <record model="ir.actions.server" id="bicycles.action_server">
+      <field name="name">bicycles server</field>
+      <field name="model_id" ref="model_bicycles_bicycles"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": "bicycles.bicycles",
+        }
+      </field>
+    </record>
+
+    <!-- server action to the one above -->
+    <record model="ir.actions.client" id="bicycles.action_client">
+      <field name="name">bicycles client</field>
+      <field name="tag">bicycles.ui.ya</field>
+    </record>
+
+    <!-- server action to the one above -->
+    <record model="ir.actions.act_url" id="bicycles.action_act_url">
+      <field name="name">bicycles act_url</field>
+      <field name="type">ir.actions.act_url</field>
+      <field name="target">self</field>
+      <field name="url">/bicycles/web</field>
+    </record>
+
+    <!-- server action to the one above -->
+    <record model="ir.actions.act_url" id="bicycles.action_act_url_otro">
+      <field name="name">bicycles act_url otro</field>
+      <field name="type">ir.actions.act_url</field>
+      <field name="target">self</field>
+      <field name="url">/bicycles/bicycles/</field>
+    </record>
+
+    <!-- Top menu item -->
+    <menuitem name="Bicycles" id="bicycles.menu_root"/>
+    <!-- menu categories -->
+    <menuitem name="Menu 1" id="bicycles.menu_1" parent="bicycles.menu_root"/>
+    <menuitem name="Menu 2" id="bicycles.menu_2" parent="bicycles.menu_root"/>
+    <menuitem name="Menu 3" id="bicycles.menu_3" parent="bicycles.menu_root"/>
+    <menuitem name="Menu 4" id="bicycles.menu_4" parent="bicycles.menu_root"/>
+    <menuitem name="Menu 5" id="bicycles.menu_5" parent="bicycles.menu_root"/>
+    <!-- actions -->
+    <menuitem name="List" id="bicycles.menu_1_list" parent="bicycles.menu_1"
+              action="bicycles.action_window"/>
+    <menuitem name="Server to list" id="bicycles.menu_2_list" parent="bicycles.menu_2"
+              action="bicycles.action_server"/>
+    <menuitem name="Client to list" id="bicycles._menu_3_list" parent="bicycles.menu_3"
+              action="bicycles.action_client"/>
+    <menuitem name="URL to list" id="bicycles._menu_4_list" parent="bicycles.menu_4"
+              action="bicycles.action_act_url"/>
+    <menuitem name="URL to list otro" id="bicycles._menu_5_list" parent="bicycles.menu_5"
+              action="bicycles.action_act_url_otro"/>
+  </data>
+</odoo>
